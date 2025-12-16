@@ -44,17 +44,13 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     
     for i, char in enumerate(ciphertext):
         if char.isalpha():
-            # Определяем сдвиг для текущего символа
             shift = ord(keyword[i % key_length]) - ord('A')
             
             if char.isupper():
-                # Дешифрование для заглавных букв
                 decrypted_char = chr((ord(char) - ord('A') - shift) % 26 + ord('A'))
             else:
-                # Дешифрование для строчных букв
                 decrypted_char = chr((ord(char) - ord('a') - shift) % 26 + ord('a'))
             plaintext += decrypted_char
         else:
-            # Не-буквенные символы остаются без изменений
             plaintext += char
     return plaintext

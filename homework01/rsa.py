@@ -12,7 +12,25 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-   
+    if n < 2:
+        return False
+    
+    # 2 - единственное четное простое число
+    if n == 2:
+        return True
+    
+    # Все четные числа, кроме 2, не являются простыми
+    if n % 2 == 0:
+        return False
+    
+    # Проверяем делители от 3 до квадратного корня из n с шагом 2
+    # (так как все четные уже исключили)
+    limit = int(n ** 0.5) + 1
+    for i in range(3, limit, 2):
+        if n % i == 0:
+            return False
+    
+    return True
     pass
 
 

@@ -60,7 +60,6 @@ def multiplicative_inverse(e: int, phi: int) -> int:
         x0, x1 = x1, x0 - q * x1
         y0, y1 = y1, y0 - q * y1
     
-    # Ensure the inverse is positive
     d = x0 % original_phi
     return d
 

@@ -15,7 +15,7 @@ class GameOfLife:
         self,
         size: tp.Tuple[int, int],
         randomize: bool = True,
-        max_generations: tp.Optional[float] = float("inf"),
+        max_generations: tp.Optional[float] = None,
     ) -> None:
 
         self.rows, self.cols = size
@@ -140,6 +140,10 @@ class GameOfLife:
         """
         Не превысило ли текущее число поколений максимально допустимое.
         """
+
+        if self.max_generations is None:
+            return False
+
         return self.generations >= self.max_generations
 
     @property
@@ -177,7 +181,7 @@ class GameOfLife:
             if len(row) != cols:
                 raise ValueError("All rows must have the same length")
 
-        game = GameOfLife(size=(rows, cols), randomize=False, max_generations=float("inf"))
+        game = GameOfLife(size=(rows, cols), randomize=False, max_generations=None)
         game.curr_generation = grid
         game.prev_generation = game.create_grid()
 
@@ -197,24 +201,16 @@ class GameOfLife:
 
 if __name__ == "__main__":
 
-    game = GameOfLife(size=(20, 20), randomize=True, max_generations=100)
+    game1 = GameOfLife(size=(20, 20), randomize=True, max_generations=None)
+    print(f"Игра 1: ограничений поколений нет")
+    print(f"Превышен лимит поколений? {game1.is_max_generations_exceeded}")
 
-    print(f"Начальное поколение: поколение {game.generations}")
-    print(f"Максимальное количество поколений: {game.max_generations}")
+    game2 = GameOfLife(size=(20, 20), randomize=True, max_generations=100)
+    print(f"\nИгра 2: ограничение {game2.max_generations} поколений")
+    print(f"Превышен лимит поколений? {game2.is_max_generations_exceeded}")
 
     for _ in range(5):
-        game.step()
-        print(f"Поколение {game.generations}: меняется = {game.is_changing}")
+        game2.step()
 
-    print(f"Превышен лимит поколений? {game.is_max_generations_exceeded}")
-
-    game.save(pathlib.Path("game_state.txt"))
-
-    try:
-        loaded_game = GameOfLife.from_file(pathlib.Path("game_state.txt"))
-        print(f"\nЗагружена игра размера {loaded_game.rows}x{loaded_game.cols}")
-        print(f"Загруженное поколение: {loaded_game.generations}")
-    except FileNotFoundError:
-        print("Файл не найден")
-    except ValueError as e:
-        print(f"Ошибка в формате файла: {e}")
+    print(f"После 5 шагов: поколение {game2.generations}")
+    print(f"Превышен лимит поколений? {game2.is_max_generations_exceeded}")

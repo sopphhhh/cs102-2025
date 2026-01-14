@@ -1,6 +1,7 @@
 import unittest
 
-import sudoku
+
+import homework02.sudoku as sudoku
 
 
 class SudokuTestCase(unittest.TestCase):

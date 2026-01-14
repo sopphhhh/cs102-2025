@@ -2,7 +2,7 @@ import random
 import string
 import unittest
 
-import vigenere
+import homework01.vigenere as vigenere
 
 
 class VigenereTestCase(unittest.TestCase):

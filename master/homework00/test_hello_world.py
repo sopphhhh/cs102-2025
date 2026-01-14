@@ -1,6 +1,6 @@
 import unittest
 
-import hello_world
+import homework00.hello_world as hello_world
 
 
 class HelloTestCase(unittest.TestCase):

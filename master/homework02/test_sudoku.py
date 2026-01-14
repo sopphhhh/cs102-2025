@@ -1,6 +1,5 @@
 import unittest
 
-
 import homework02.sudoku as sudoku
 
 

@@ -140,15 +140,24 @@ def encircled_exit(grid: List[List[str]], coord: Tuple[int, int]) -> bool:
 def solve_maze(
     grid: List[List[str]],
 ) -> Tuple[List[List[Union[str, int]]], Optional[List[Tuple[int, int]]]]:
-    """Решает лабиринт с помощью волнового алгоритма."""
+    """
+    Решает лабиринт с помощью волнового алгоритма.
+
+    :param grid: лабиринт (только строки)
+    :return: кортеж (лабиринт с номерами шагов, путь или None)
+    """
 
     exits = get_exits(grid)
     if len(exits) != 2:
-        return grid, None
+
+        result_grid: List[List[Union[str, int]]] = [[cell for cell in row] for row in grid]
+        return result_grid, None
 
     for exit_coord in exits:
         if encircled_exit(grid, exit_coord):
-            return grid, None
+
+            result_grid: List[List[Union[str, int]]] = [[cell for cell in row] for row in grid]
+            return result_grid, None
 
     wave_grid: List[List[Union[str, int]]] = [[cell for cell in row] for row in grid]
 
